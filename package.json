@@ -1,0 +1,62 @@
+{
+  "name": "work-in-place",
+  "version": "1.0.0",
+  "description": "A perfect desktop workplace app with text editor and notes",
+  "main": "dist/main/main.js",
+  "homepage": "./",
+  "scripts": {
+    "start": "concurrently \"npm run electron\" \"npm run react-start\"",
+    "react-start": "react-scripts start",
+    "react-build": "react-scripts build",
+    "react-test": "react-scripts test",
+    "react-eject": "react-scripts eject",
+    "electron": "wait-on http://localhost:3000 && electron .",
+    "electron-dev": "electron . --dev",
+    "build": "npm run react-build && electron-builder",
+    "build-win": "npm run react-build && electron-builder --win",
+    "dev": "concurrently \"npm run react-start\" \"wait-on http://localhost:3000 && electron .\"",
+    "dist": "npm run react-build && electron-builder -mwl"
+  },
+  "dependencies": {
+    "electron-squirrel-startup": "^1.1.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "prismjs": "^1.29.0",
+    "react-prism": "^4.4.0",
+    "electron-store": "^8.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@types/node": "^20.0.0",
+    "@types/electron": "^1.6.10",
+    "typescript": "^5.0.0",
+    "react-scripts": "5.0.1",
+    "electron": "^27.0.0",
+    "electron-builder": "^24.6.4",
+    "concurrently": "^8.2.0",
+    "wait-on": "^7.0.1"
+  },
+  "build": {
+    "appId": "com.workinplace.app",
+    "productName": "WOrK in PLACE",
+    "files": [
+      "dist/**/*",
+      "node_modules/**/*",
+      "public/**/*"
+    ],
+    "directories": {
+      "buildResources": "public"
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}
